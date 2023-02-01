@@ -11,14 +11,25 @@ public class TCPClient {
         String sentence;
         String editedSentence;
 
+        System.out.print("Enter the String : ");
+
         BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
 
         Socket s = new Socket("localhost", 6699);
 
-        System.out.println("Enter the String : ");
+        
 
         DataOutputStream d = new DataOutputStream(s.getOutputStream());
 
         BufferedReader inFormServer = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
+        sentence = inFormServer.readLine();
+        d.writeBytes(sentence);
+        editedSentence = inFormServer.readLine();
+        
+        System.out.println("From Server : " + editedSentence);
+
+        s.close();
+
     }
 }
